@@ -13,6 +13,7 @@ Question::Question(string content="",int type=0)
     else this->type=0;
     this->content=content;
     head=tail=NULL;
+    this->next=NULL;
 }
 
 /* 
@@ -47,6 +48,13 @@ int Question::get_type()
 string Question::get_content()
 {
     return content;
+}
+
+Question& Question::operator=(Question *temp)
+{
+    this->content=temp->content;
+    this->type=temp->type;
+    return *this;
 }
 
 /* 
@@ -339,15 +347,99 @@ istream& operator>>(istream &in,Question &q)
         q+a;
     }
 }
-// void Question::display()
-// {
-//     cout<<"Cau hoi: "<<content<<endl;
-//     Choice *a= head;
-//     int i=1;
-//     while(a!=NULL)
-//     {
-//         cout<<i<<"."<<a->content<<endl;
-//         a=a->next;
-//         i++;
-//     }
-// }
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~Class Quiz~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+Quiz::Quiz(string name,int duration)
+{
+    this->name=name;
+    this->duration=duration;
+    head=tail=NULL;
+}
+
+
+void Quiz::addQuestion(Question *temp)
+{
+    if(head==NULL)
+    {
+        head=tail=temp;
+    }
+    else
+    {
+        tail->next=temp;
+        tail=temp;
+    }
+}
+
+void Quiz::removeQuestion(int pos)
+{
+    Question *temp=head;
+    if(pos==1)
+    {
+        if(head=tail)
+        {
+            head=tail=NULL;
+        }
+        else
+        {
+            head=head->next;
+            temp->next=NULL;
+        }
+    }
+    else
+    {
+        int dem=2;
+        Question *temp1=head;
+        temp=temp->next;
+        // When i fine dem i have the previus temp and temp 
+        while(dem != pos and temp != tail)
+        {
+            temp1=temp1->next;
+            temp=temp->next;
+            dem++;
+        }
+        //Check fine pos 
+        if(dem==pos)
+        {
+            if(temp==tail)
+            {
+                tail=temp1;
+                tail->next=NULL;
+            }
+            else
+            {
+                temp1->next=temp->next;
+                temp->next=NULL;
+            }
+        }
+    }
+}
+
+void Quiz::updateQuestion(int pos,Question *temp)
+{
+    Question *a=head;
+    if(pos==0)
+    {
+        a=temp;
+    }
+    else
+    {
+        a=a->next;
+        int dem=1;
+        while(dem!=pos && a->next!=NULL)
+        {
+            dem++;
+            a=a->next;
+        }
+        if(dem==pos)
+            a=temp;
+    }
+}
+
+void Quiz::importFromFile(std::string)
+{
+    ofstream
+}

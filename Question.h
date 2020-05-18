@@ -1,14 +1,16 @@
 #include<iostream>
 #include<string>
-
+// #include<vector>
+#include<fstream>
 #pragma once 
 class Question;
 class Choice;
-
+class Quiz;
 class Question{
     private:
         int type;
         std::string content;
+        Question *next;
         Choice *head,*tail;
     public:
         Question(std::string,int);
@@ -21,7 +23,9 @@ class Question{
         void update(int,Choice*);
         Question& operator+(Choice* );
         Question& operator-(int );
+        Question& operator=(Question *);
         // void display();
+        friend class Quiz;
         friend std::ostream& operator<<(std::ostream&,const Question&); 
         friend std::istream& operator>>(std::istream&,Question&);
 };
@@ -43,4 +47,21 @@ class Choice{
         friend class Question;
         friend std::ostream& operator<<(std::ostream&,const Question&);
         friend std::istream& operator>>(std::istream&,Question&);
+};
+
+class Quiz
+{
+    std::string name;
+    int duration;
+    Question *head,*tail;
+    public:
+        Quiz(std::string,int);
+        void addQuestion(Question*);
+        void removeQuestion(int);
+        void updateQuestion(int, Question*);
+        void importFromFile(std::string);
+        void exportToFile(std::string);
+        Quiz operator+(Question);
+        Quiz operator-(Question);
+        friend std::ostream& operator<<(std::ostream,Question);
 };

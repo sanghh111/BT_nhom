@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.py": "python",
+        "*.json": "python",
+        "*.sqlite": "python",
+        "iostream": "cpp",
+        "iosfwd": "cpp",
+        "ostream": "cpp"
+    }
+}
