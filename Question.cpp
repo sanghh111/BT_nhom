@@ -57,6 +57,17 @@ Question& Question::operator=(Question *temp)
     return *this;
 }
 
+int Question::count_Choice()
+{
+    Choice *a=head;
+    int dem=0;
+    while(a!=NULL)
+    {
+        dem++;
+        a=a->next;
+    }
+    return dem;
+}
 /* 
     ````````Contrustor Class Choice```````````
 */
@@ -312,7 +323,7 @@ Question& Question::operator-(int Pos){
 */
 ostream& operator<<(ostream& out,const Question& q)
 {
-    out<<"Cau hoi: "<<q.content<<endl;
+    out<<q.content<<endl;
     Choice *a= q.head;
     int i=1;
     while(a!=NULL)
@@ -346,6 +357,7 @@ istream& operator>>(istream &in,Question &q)
         Choice *a= new Choice(temp_content,temp_score);
         q+a;
     }
+    return in;
 }
 
 /*
@@ -353,7 +365,7 @@ istream& operator>>(istream &in,Question &q)
 ~~~~~~~~~~~~~~~~Class Quiz~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-Quiz::Quiz(string name,int duration)
+Quiz::Quiz(string name="",int duration=0)
 {
     this->name=name;
     this->duration=duration;
@@ -379,7 +391,7 @@ void Quiz::removeQuestion(int pos)
     Question *temp=head;
     if(pos==1)
     {
-        if(head=tail)
+        if(head==tail)
         {
             head=tail=NULL;
         }
@@ -439,7 +451,71 @@ void Quiz::updateQuestion(int pos,Question *temp)
     }
 }
 
-void Quiz::importFromFile(std::string)
+void Quiz::importFromFile(string nameFile)
 {
-    ofstream
+    fstream outFile;
+    outFile.open(nameFile,ios::out);
+    Question *temp=head;
+    outFile<<name<<","<<duration;
+    while(temp!=NULL)
+    {
+    	outFile<<endl<<temp->get_content()<<", "<<temp->get_type()<<", "<<temp->count_Choice()<<", ";
+    	Choice *tempC=temp->head;
+    	while(tempC!=NULL)
+    	{
+    		outFile<<tempC->get_content()<<"-";
+    		tempC=tempC->next;
+		}
+		temp=temp->next;
+	}
+    outFile.close();
+}
+
+ostream& operator<<(ostream &out,Quiz c)
+{
+	out<<"-------------------------------------"<<endl;
+	out<<"          Quiz: "<<c.name<<endl;
+	out<<"-------------------------------------"<<endl;
+	Question *temp=c.head;
+    int dem=1;
+    while(temp!=NULL)
+	{
+        out<<"Cau "<<dem<<": "<<*temp;
+        temp=temp->next;
+        dem++;
+        cout<<endl;
+    }
+	return out;
+}
+
+void Quiz::exportToFile(string nameFile)
+{
+    fstream inFile;
+    inFile.open(nameFile,ios::in);
+    getline(inFile,name,',');
+    inFile>>duration;
+    Question *temp;
+    string content;
+    getline(inFile,content);
+    int type;
+    while(inFile.eof()==0)
+    {
+        string tempS;
+        getline(inFile,content,',');
+        inFile>>type;
+        temp=new Question(content,type);
+        this->addQuestion(temp);
+        inFile.seekg(1,ios::cur);
+        inFile>>type;
+        inFile.seekg(2,ios::cur);
+        Choice *tempC;
+        for(int i=0;i<type;i++)
+        {
+            getline(inFile,content,'-');
+            tempC=new Choice(content);
+            temp->addChoice(tempC);
+        }
+        getline(inFile,tempS);
+    }
+    inFile.close();
 }

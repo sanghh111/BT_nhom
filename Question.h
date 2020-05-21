@@ -10,14 +10,15 @@ class Question{
     private:
         int type;
         std::string content;
-        Question *next;
-        Choice *head,*tail;
     public:
+    	Question *next;
+    	Choice *head,*tail;
         Question(std::string,int);
         void set_content(std::string);
         void set_type(int);
         std::string get_content();
         int get_type();
+        int count_Choice();
         void addChoice(Choice *);
         void removeChoice(int);
         void update(int,Choice*);
@@ -35,8 +36,8 @@ class Choice{
         std::string content;
         float score;
         int order;
-        Choice *next;
     public:
+    	Choice *next;
         Choice(std::string,float);
         void set_content(std::string);
         void set_score(float);
@@ -46,7 +47,7 @@ class Choice{
         int get_order();
         friend class Question;
         friend std::ostream& operator<<(std::ostream&,const Question&);
-        friend std::istream& operator>>(std::istream&,Question&);
+        friend std::istream& operator>>(std::istream&,Choice&);
 };
 
 class Quiz
@@ -63,5 +64,5 @@ class Quiz
         void exportToFile(std::string);
         Quiz operator+(Question);
         Quiz operator-(Question);
-        friend std::ostream& operator<<(std::ostream,Question);
+        friend std::ostream& operator<<(std::ostream&,Quiz);
 };

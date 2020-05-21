@@ -5,6 +5,9 @@
         "*.sqlite": "python",
         "iostream": "cpp",
         "iosfwd": "cpp",
-        "ostream": "cpp"
-    }
+        "ostream": "cpp",
+        "*.tcc": "cpp",
+        "new": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }
