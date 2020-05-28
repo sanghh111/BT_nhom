@@ -1,4 +1,4 @@
-#include"Question.cpp"
+#include"Question.h"
 void menu(){
     int choose=0;
     int element_Question=0;

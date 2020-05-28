@@ -451,26 +451,6 @@ void Quiz::updateQuestion(int pos,Question *temp)
     }
 }
 
-void Quiz::importFromFile(string nameFile)
-{
-    fstream outFile;
-    outFile.open(nameFile,ios::out);
-    Question *temp=head;
-    outFile<<name<<","<<duration;
-    while(temp!=NULL)
-    {
-    	outFile<<endl<<temp->get_content()<<", "<<temp->get_type()<<", "<<temp->count_Choice()<<", ";
-    	Choice *tempC=temp->head;
-    	while(tempC!=NULL)
-    	{
-    		outFile<<tempC->get_content()<<"-";
-    		tempC=tempC->next;
-		}
-		temp=temp->next;
-	}
-    outFile.close();
-}
-
 ostream& operator<<(ostream &out,Quiz c)
 {
 	out<<"-------------------------------------"<<endl;
@@ -488,34 +468,4 @@ ostream& operator<<(ostream &out,Quiz c)
 	return out;
 }
 
-void Quiz::exportToFile(string nameFile)
-{
-    fstream inFile;
-    inFile.open(nameFile,ios::in);
-    getline(inFile,name,',');
-    inFile>>duration;
-    Question *temp;
-    string content;
-    getline(inFile,content);
-    int type;
-    while(inFile.eof()==0)
-    {
-        string tempS;
-        getline(inFile,content,',');
-        inFile>>type;
-        temp=new Question(content,type);
-        this->addQuestion(temp);
-        inFile.seekg(1,ios::cur);
-        inFile>>type;
-        inFile.seekg(2,ios::cur);
-        Choice *tempC;
-        for(int i=0;i<type;i++)
-        {
-            getline(inFile,content,'-');
-            tempC=new Choice(content);
-            temp->addChoice(tempC);
-        }
-        getline(inFile,tempS);
-    }
-    inFile.close();
-}
+void Quiz::importFromFile(char *)
