@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=1
 CompilerSettings=0000000000000000001000000
-UnitCount=6
+UnitCount=5
 
 [VersionInfo]
 Major=1
@@ -93,15 +93,6 @@ BuildCmd=
 [Unit5]
 FileName=Choice.cpp
 CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit6]
-FileName=Untitled5
 Folder=
 Compile=1
 Link=1
