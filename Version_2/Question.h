@@ -1,13 +1,10 @@
-#pragma once
-#include<iostream>
-#include<string.h>
-using namespace std;
 #include"Choice.h"
 class Question{
 	bool type;
 	string content;
 	int count_answer,count_choice;
 	Choice* head,*tail;
+	Question* next;
 	float point;
 	public:
 		Question(string,bool);
@@ -22,4 +19,9 @@ class Question{
 		Question& operator-(int );
 		int get_count_answer();
 //        Question& operator=(Question *);
+		Question* getNext();
+		void setNext(Question *);
+//		friend class Quiz;
+		string getContent();
+		bool getType();
 };

@@ -6,6 +6,7 @@ Question::Question(string content="",bool type=false)
 	this->type=type;
 	head=tail=NULL;
 	count_answer=0;
+	next=NULL;
 }
 
 void Question::addChoice(Choice* temp)
@@ -290,18 +291,55 @@ Choice* Question::fineTrueChoice()
 	{
 		temp=temp->next;
 	}
-//	cout<<temp->get_content();	
+//	cout<<temp->get_content()<<endl;	
 	return temp;
 }
 
 void Question::makeTrueChoice(int pos)
 {
+	if(type==0)
+	{
+		while(count_answer!=0)
+		{
+			Choice *a= fineTrueChoice();
+			a->set_answer(0);
+			count_answer--;
+		}
+	}
 	Choice *temp = head;
 	int count=1;
-	if()
+	while(pos!=count && temp!=NULL)
+	{
+		temp=temp->next;
+		count++;
+	}
+	if(temp!=NULL)
+	{
+		temp->set_answer(1);
+	}
 }
 
 int Question::get_count_answer()
 {
 	return count_answer;	
 } 
+
+Question* Question::getNext()
+{
+	return this->next;
+}
+
+void Question::setNext(Question* temp)
+{
+	this->next=temp;
+}
+
+string Question::getContent()
+{
+	return content;
+}
+
+bool Question::getType()
+{
+	return type;
+}

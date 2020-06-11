@@ -13,9 +13,9 @@ class Choice{
 		void set_next(Choice *);
 		string get_content();
 		void set_content();
-		friend class Question;
 		bool get_answer();
 		void set_answer(bool);
 		void set_makeChoose(bool);
 		bool get_makeChoose();
+		friend class Question;
 };
