@@ -248,7 +248,7 @@ Question& Question::operator-(int Pos){
 
 ostream& operator<<(ostream& out,Question& q)
 {
-    out<<q.content<<endl;
+    out<<q.content<<" "<<q.type<<endl;
     Choice *a= q.head;
     int i=1;
     while(a!=NULL)
@@ -313,9 +313,10 @@ void Question::makeTrueChoice(int pos)
 		temp=temp->next;
 		count++;
 	}
-	if(temp!=NULL)
+	if(temp)
 	{
 		temp->set_answer(1);
+		count_answer++;
 	}
 }
 
@@ -342,4 +343,9 @@ string Question::getContent()
 bool Question::getType()
 {
 	return type;
+}
+
+Choice* Question::getHead()
+{
+	return head;
 }

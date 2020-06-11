@@ -11,6 +11,6 @@ class Quiz
 		void addQuestion(Question*);
 		void removeQuestion(int);
 		void exportFile(string);
-		Quiz* importFile(string);
+		void importFile(string);
 		friend ostream& operator<<(ostream&,Quiz&);
 };

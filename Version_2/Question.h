@@ -24,4 +24,5 @@ class Question{
 //		friend class Quiz;
 		string getContent();
 		bool getType();
+		Choice* getHead();
 };
