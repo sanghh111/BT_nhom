@@ -12,5 +12,7 @@ class Quiz
 		void removeQuestion(int);
 		void exportFile(string);
 		void importFile(string);
+		string get_content();
+		Question* get_Head();
 		friend ostream& operator<<(ostream&,Quiz&);
 };

@@ -4,7 +4,7 @@ Choice::Choice(string content="",bool answer=false)
 	this->content=content;
 	this->answer=answer;
 	next=NULL;
-	makeChoose=0;
+//	makeChoose=0;
 }
 
 Choice* Choice::get_next()
@@ -22,15 +22,15 @@ bool Choice::get_answer()
 	return answer;
 }
 
-void Choice::set_makeChoose(bool makeChoose)
-{
-	this->makeChoose=makeChoose;
-}
+//void Choice::set_makeChoose(bool makeChoose)
+//{
+//	this->makeChoose=makeChoose;
+//}
 
-bool Choice::get_makeChoose()
-{
-	return makeChoose;
-}
+//bool Choice::get_makeChoose()
+//{
+//	return makeChoose;
+//}
 
 void Choice::set_answer(bool answer)
 {

@@ -248,16 +248,19 @@ Question& Question::operator-(int Pos){
 
 ostream& operator<<(ostream& out,Question& q)
 {
-    out<<q.content<<" "<<q.type<<endl;
+    out<<q.content<<" ";
+    if(q.type==0)
+    cout<<"one Choice\n";
+    else cout<<"muti Choice\n";
     Choice *a= q.head;
-    int i=1;
+    char i=65;
     while(a!=NULL)
     {
         out<<i<<"."<<a->get_content()<<"	"<<a->get_answer()<<endl;
         a=a->get_next();
         i++;
     }
-    out<<q.get_count_answer()<<endl;
+//    out<<q.get_count_answer()<<endl;
     return out;
 }
 
@@ -348,4 +351,23 @@ bool Question::getType()
 Choice* Question::getHead()
 {
 	return head;
+}
+
+bool Question::checkChoice(int pos)
+{
+	Choice* temp=head;
+	int count=0;
+	while(count!=pos && temp)
+	{
+		temp=temp->next;
+		count++;
+	}
+	if (temp)
+	return temp->get_answer();
+	else return 0;
+}
+
+float Question::getPointe(float Point)
+{
+	return Point/count_answer;
 }

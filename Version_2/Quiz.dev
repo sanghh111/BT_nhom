@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=2
 CompilerSettings=0000000000000000100000000
-UnitCount=7
+UnitCount=10
 
 [VersionInfo]
 Major=1
@@ -112,6 +112,36 @@ BuildCmd=
 
 [Unit7]
 FileName=Quiz.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit8]
+FileName=Student.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit9]
+FileName=Student.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit10]
+FileName=sqlite3.cpp
 CompileCpp=1
 Folder=
 Compile=1

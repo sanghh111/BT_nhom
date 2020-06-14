@@ -28,7 +28,7 @@ ostream& operator<<(ostream& out,Quiz& temp)
 	int i=1;
 	while(t!=NULL)
 	{
-		cout<<"cau"<<i<<":	";
+		cout<<"cau"<<i<<": ";
 		cout<<*t;
 		t=t->getNext();
 		i++;
@@ -79,7 +79,7 @@ void Quiz::exportFile(string nameFile)
 {
 	nameFile="quiz/"+nameFile;
 	ofstream out(nameFile.c_str());
-	out<<content<<","<<duration<<endl;
+	out<<content<<"-"<<duration<<endl;
 	Question *temp=head;
 	int i=0;
 	while(temp)
@@ -92,7 +92,7 @@ void Quiz::exportFile(string nameFile)
 	Choice* tempChoice;
 	while(temp)
 	{
-		out<<temp->getContent()<<","<<temp->getType()<<endl;
+		out<<temp->getContent()<<"-"<<temp->getType()<<endl;
 		tempChoice=temp->getHead();
 		i=0;
 		while(tempChoice)
@@ -104,14 +104,14 @@ void Quiz::exportFile(string nameFile)
 		tempChoice=temp->getHead();
 		while(tempChoice)
 		{
-			out<<tempChoice->get_content()<<",";
+			out<<tempChoice->get_content()<<"-";
 			tempChoice=tempChoice->get_next();
 		}
 		out<<endl;
 		tempChoice=temp->getHead();
 		while(tempChoice)
 		{
-			out<<tempChoice->get_answer()<<",";
+			out<<tempChoice->get_answer()<<"-";
 			tempChoice=tempChoice->get_next();
 		}
 		tempChoice=temp->getHead();
@@ -128,7 +128,7 @@ void Quiz::importFile(string nameFile)
 	string temp_str;
 	int temp_int;
 	bool temp_bool;
-	getline(in,temp_str,',');
+	getline(in,temp_str,'-');
 	in>>temp_int;
 	content=temp_str;
 	duration=temp_int;
@@ -141,7 +141,7 @@ void Quiz::importFile(string nameFile)
 	getline(in,temp_str);
 	for(i=0;i<temp_cq;i++)
 	{
-		getline(in,temp_str,',');
+		getline(in,temp_str,'-');
 		in>>temp_bool;
 //		cout<<temp_bool;
 		tempQ= new Question(temp_str,temp_bool);
@@ -150,7 +150,7 @@ void Quiz::importFile(string nameFile)
 		getline(in,temp_str);
 		for(int j=0;j<temp_int;j++)
 		{
-			getline(in,temp_str,',');
+			getline(in,temp_str,'-');
 			tempC=new Choice(temp_str,0);
 			tempQ->addChoice(tempC);
 		}
@@ -160,9 +160,19 @@ void Quiz::importFile(string nameFile)
 			in>>temp_bool;
 			if(temp_bool)
 			tempQ->makeTrueChoice(j+1);
-			getline(in,temp_str,',');
+			getline(in,temp_str,'-');
 		}
 		getline(in,temp_str);
 	}
 	in.close();
+}
+
+Question* Quiz::get_Head()
+{
+	return head;
+}
+
+string Quiz::get_content()
+{
+	return content;
 }

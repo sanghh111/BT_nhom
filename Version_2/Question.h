@@ -13,10 +13,13 @@ class Question{
 		void addChoice(Choice*);
 		void updateChoice(int,Choice*);
 		void removeChoice(int);
+		bool checkChoice(int);
 		friend ostream& operator<<(ostream&,Question&);
 		friend istream& operator>>(istream&,Question&);
 		Question& operator+(Choice *);
 		Question& operator-(int );
+		void display();
+		float getPointe(float);
 		int get_count_answer();
 //        Question& operator=(Question *);
 		Question* getNext();
