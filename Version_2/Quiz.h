@@ -3,16 +3,16 @@
 #include<fstream>
 class Quiz
 {
-	int duration;
-	Question* head,*tail;
-	string content;
+	int duration;// thoi gian
+	Question* head,*tail;//head :dau ;tail :cuoi
+	string content;//noi dung
 	public:
 		Quiz(string,int);
-		void addQuestion(Question*);
-		void removeQuestion(int);
-		void exportFile(string);
-		void importFile(string);
-		string get_content();
+		void addQuestion(Question*);//them cau hoi
+		void removeQuestion(int);//xoa file
+		void exportFile(string);//xuat file
+		void importFile(string);//nhap file
+		string get_content();//
 		Question* get_Head();
-		friend ostream& operator<<(ostream&,Quiz&);
+		friend ostream& operator<<(ostream&,Quiz&);// xuat tra loi ra man hinh 
 };

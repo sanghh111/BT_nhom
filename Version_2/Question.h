@@ -1,10 +1,10 @@
 #include"Choice.h"
 class Question{
-	bool type;
+	bool type;//type=0 once choice, type=1 muti
 	string content;
-	int count_answer,count_choice;
-	Choice* head,*tail;
-	Question* next;
+	int count_answer;
+	Choice *head,*tail;
+	Question *next;
 	float point;
 	public:
 		Question(string,bool);
@@ -21,7 +21,7 @@ class Question{
 		void display();
 		float getPointe(float);
 		int get_count_answer();
-//        Question& operator=(Question *);
+//      Question& operator=(Question *);
 		Question* getNext();
 		void setNext(Question *);
 //		friend class Quiz;

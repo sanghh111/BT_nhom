@@ -5,7 +5,7 @@ Student::Student(string name,string id)
 	this->id=id;
 }
 
-string Upper(string a)
+string Upper(string a)//viet hoa
 {
 	for(int i=0;i<a.length();i++)
 	{
@@ -15,7 +15,7 @@ string Upper(string a)
 	return a;
 }
 
-void Student::do_quiz(string nameFile)
+void Student::do_quiz(string nameFile)//lam cau hoi thi
 {
 	Quiz *q;
 	q=new Quiz("",0);
@@ -64,7 +64,7 @@ void Student::do_quiz(string nameFile)
 			cout<<"\t\tChua duoc tra loi";
 			else cout<<"\t\tDa duoc tra loi";
 			cout<<endl;
-			Q=Q->getNext();
+			Q=Q->getNext();//cau hoi tiep theo
 		}
 		cout<<endl<<endl;
 		cout<<"Ban muon ket thuc(K) hay la tra loi cau hoi(T): ";
@@ -108,24 +108,22 @@ void Student::do_quiz(string nameFile)
 			if(myAnswer[nhap-1].compare("")!=0)
 			{
 				myAnswerB[nhap-1]=true;
-				cout<<"a";
+//				cout<<"a";
 			}
 		}
 		else if(check=="K")
 			a=true;
 	}
-	float point=10/count;
+	float point=10.0/count;
 	Q=q->get_Head();
 	for(int i=0;i<count;i++)
 	{
 		if(myAnswerB[i])
 		{
-			cout<<i;
-			cout<<"b";
-			cout<<Q->getContent()<<endl;
+//			cout<<i;
+//			cout<<Q->getContent()<<endl;
 			if (Q->getType()==0)
 			{
-				cout<<"true";
 				if(myAnswer[i].length()==1)
 				{
 					char tmp1=65;
@@ -140,20 +138,26 @@ void Student::do_quiz(string nameFile)
 			else 
 			{
 				int len_ans=myAnswer[i].length();
-				cout<<myAnswer[i];
+				cout<<"len: "<<len_ans<<endl;
 				for(int j=0;j<len_ans;j++)
 					{
 						char tmp1=65;
 						int tmp=myAnswer[i][j]-tmp1;
 						cout<<tmp;
 						if(Q->checkChoice(tmp))
-							myAnswer[i]+=Q->getPointe(point);
+							{
+							cout<<"true";
+							myPoint[i]+=Q->getPointe(point);
+							}
 						else
+							{
+							cout<<"false";
 							myPoint[i]=0;
+							}
 					}
 			}
 		}		
-		cout<<myPoint[i];
-		Q=Q->getNext();
+		cout<<myPoint[i];// diem tung cau hoi
+		Q=Q->getNext();// cau tiep theo
 	}
 }

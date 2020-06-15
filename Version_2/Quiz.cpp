@@ -1,5 +1,5 @@
 #include"Quiz.h"
-Quiz::Quiz(string content = "",int duration = 0)
+Quiz::Quiz(string content = "",int duration = 0)//noi dung va thoi gian kiem tra
 {
 	this->content=content;
 	this->duration=duration;
@@ -121,7 +121,7 @@ void Quiz::exportFile(string nameFile)
 	out.close();
 }
 
-void Quiz::importFile(string nameFile)
+void Quiz::importFile(string nameFile)// nhap file
 {
 	nameFile="quiz/"+nameFile;
 	ifstream in(nameFile.c_str());
