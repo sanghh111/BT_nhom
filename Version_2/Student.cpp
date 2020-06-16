@@ -62,7 +62,7 @@ void Student::do_quiz(string nameFile)//lam cau hoi thi
 	while(!a)
 	{
 		Q=q->get_Head();
-//		system("cls");
+		system("cls");
 		cout<<"\t\t ";
 		for(int i=0;i<Range;i++)
 		cout<<"-";
@@ -78,6 +78,9 @@ void Student::do_quiz(string nameFile)//lam cau hoi thi
 		for(int i=0;i<Range;i++)
 		cout<<"-";
 		cout<<endl;
+		cout<<"Ten: "<<name<<endl;
+		cout<<"Thoi gian lam: "<<ltm->tm_hour<<":"<<ltm->tm_min<<":"<<ltm->tm_sec<<" ";
+		cout<<ltm->tm_mday<<"-"<<ltm->tm_mon+1<<"-"<<ltm->tm_year+1900<<endl;
 		for(int i=0;i<count;i++)
 		{
 			cout<<"Cau "<<i+1<<": "<<Q->getContent();
@@ -117,6 +120,9 @@ void Student::do_quiz(string nameFile)//lam cau hoi thi
 			for(int i=0;i<Range;i++)
 			cout<<"-";
 			cout<<endl;
+			cout<<"Ten: "<<name<<endl;
+			cout<<"Thoi gian lam: "<<ltm->tm_hour<<":"<<ltm->tm_min<<":"<<ltm->tm_sec<<" ";
+			cout<<ltm->tm_mday<<"-"<<ltm->tm_mon+1<<"-"<<ltm->tm_year+1900<<endl;
 			for(int j=1;j<nhap;j++)
 			{
 				Q=Q->getNext();
@@ -182,10 +188,20 @@ void Student::do_quiz(string nameFile)//lam cau hoi thi
 	 	if(myPoint[i]==point)
 	 		tep++;
 	cout<<tep<<"/"<<count<<endl;
+	tep=0;
+	for(int i=0;i<count;i++)
+	 		tep+=myPoint[i];
+	cout<<"Tong so diem dat duoc: "<<tep<<"/10"<<endl;
+	string tmp;
+	cout<<"Nhap <S> de luu lai dap an: ";
+	getline(cin,tmp);
+	Upper(tmp);
+	if(tmp.compare("S")==0)
+	{
 		temp=str_time(ltm);
 		temp=name+"-"+temp;
 		temp="student/"+temp+".txt";
-		cout<<temp;
+//		cout<<temp;
 		char A=65;
 		ofstream out;
 		out.open(temp.c_str());
@@ -211,4 +227,5 @@ void Student::do_quiz(string nameFile)//lam cau hoi thi
 			out<<endl;
 		}
 		out.close();
+	}
 }

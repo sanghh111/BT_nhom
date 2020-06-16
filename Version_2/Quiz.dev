@@ -141,7 +141,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit10]
-FileName=sqlite3.cpp
+FileName=sql.cpp
 CompileCpp=1
 Folder=
 Compile=1
