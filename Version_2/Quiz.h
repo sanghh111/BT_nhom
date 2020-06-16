@@ -1,6 +1,7 @@
 #pragma once
 #include"Question.h"
 #include<fstream>
+#include<sstream>
 class Quiz
 {
 	int duration;// thoi gian

@@ -15,6 +15,25 @@ string Upper(string a)//viet hoa
 	return a;
 }
 
+string str_time(tm *ltm)
+{
+	int year=ltm->tm_year+1900,mon=ltm->tm_mon+1;
+	std::stringstream y,mo,d,h,mi,s;
+	y<<year;
+	string temp=y.str();
+	mo<<mon;
+	temp+=mo.str();
+	d<<ltm->tm_mday;
+	temp+=d.str()+"-[";
+	h<<ltm->tm_hour;
+	temp+=h.str()+"-";
+	mi<<ltm->tm_min;
+	temp+=mi.str()+"-";
+	s<<ltm->tm_sec;
+	temp+=s.str()+"]";
+    return temp;
+}
+
 void Student::do_quiz(string nameFile)//lam cau hoi thi
 {
 	Quiz *q;
@@ -38,6 +57,8 @@ void Student::do_quiz(string nameFile)//lam cau hoi thi
 	int range=Range/2-temp.length();
 	string check;
 	int nhap;
+	time_t now = time(0);
+    tm *ltm	= localtime(&now); 		
 	while(!a)
 	{
 		Q=q->get_Head();
@@ -108,7 +129,6 @@ void Student::do_quiz(string nameFile)//lam cau hoi thi
 			if(myAnswer[nhap-1].compare("")!=0)
 			{
 				myAnswerB[nhap-1]=true;
-//				cout<<"a";
 			}
 		}
 		else if(check=="K")
@@ -120,8 +140,6 @@ void Student::do_quiz(string nameFile)//lam cau hoi thi
 	{
 		if(myAnswerB[i])
 		{
-//			cout<<i;
-//			cout<<Q->getContent()<<endl;
 			if (Q->getType()==0)
 			{
 				if(myAnswer[i].length()==1)
@@ -138,7 +156,6 @@ void Student::do_quiz(string nameFile)//lam cau hoi thi
 			else 
 			{
 				int len_ans=myAnswer[i].length();
-				cout<<"len: "<<len_ans<<endl;
 				for(int j=0;j<len_ans;j++)
 					{
 						char tmp1=65;
@@ -146,12 +163,10 @@ void Student::do_quiz(string nameFile)//lam cau hoi thi
 						cout<<tmp;
 						if(Q->checkChoice(tmp))
 							{
-							cout<<"true";
 							myPoint[i]+=Q->getPointe(point);
 							}
 						else
 							{
-							cout<<"false";
 							myPoint[i]=0;
 							}
 					}
@@ -160,4 +175,40 @@ void Student::do_quiz(string nameFile)//lam cau hoi thi
 		cout<<myPoint[i];// diem tung cau hoi
 		Q=Q->getNext();// cau tiep theo
 	}
+	cout<<"Tong so cau hoi :"<<count<<endl;
+	cout<<"So cau lau duoc: ";
+	tep=0;
+	for(int i=0;i<count;i++)
+	 	if(myPoint[i]==point)
+	 		tep++;
+	cout<<tep<<"/"<<count<<endl;
+		temp=str_time(ltm);
+		temp=name+"-"+temp;
+		temp="student/"+temp+".txt";
+		cout<<temp;
+		char A=65;
+		ofstream out;
+		out.open(temp.c_str());
+		out<<"Id: "<<id<<endl;
+		out<<"name: "<<name<<endl;
+		out<<"\t\t\t"<<q->get_content()<<endl;
+		Q=q->get_Head();
+		for(int i=0;i<count;i++)
+		{
+			out<<"Cau"<<i+1<<": "<<Q->getContent()<<endl;
+			Choice *C=Q->getHead();
+			tep=0;
+			while(C)
+			{
+				out<<A+tep<<". "<<C->get_content()<<endl;
+				tep++;
+				C=C->get_next();
+			}
+			out<<"Dap an:"<<myAnswer[i]<<"\t\t";
+			if(myPoint[i]==point)
+				out<<"True";
+			else out<<"False"; 
+			out<<endl;
+		}
+		out.close();
 }
