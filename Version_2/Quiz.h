@@ -1,6 +1,7 @@
 #pragma once
 #include"Question.h"
 #include<fstream>
+#include <cstdlib>
 #include<sstream>
 class Quiz
 {

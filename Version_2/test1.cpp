@@ -1,17 +1,14 @@
 #include<iostream>
 #include<time.h>
+#include<vector>
 using namespace std;
 
 main()
 {
-    time_t now = time(0);
-    tm *ltm	= localtime(&now);
-    string temp= to_string(ltm->tm_year+1900)+"/";
-    temp+=to_string(ltm->tm_mon+1)+"/";
-    temp+=to_string(ltm->tm_mday);
-    temp+="-";
-    temp+=to_string(ltm->tm_hour)+":";
-    temp+=to_string(ltm->tm_min)+":";
-    temp+=to_string(ltm->tm_sec);
-    cout<<temp;
+   vector<int> i = {2,3,5,7};
+    int a;
+    // i.push_back(a);
+    i.pop_back();
+    cout<<i.back();
+    cout<<i.size();
 }

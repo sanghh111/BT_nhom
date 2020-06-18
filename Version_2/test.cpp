@@ -9,7 +9,7 @@ int main(void)
      dirent *de;  // Pointer for directory entry 
   
     // opendir() returns a pointer of DIR type.  
-    DIR *dr = opendir("quiz"); 
+    DIR *dr = opendir("quiz/"); 
   
     if (dr == NULL)  // opendir returns NULL if couldn't open directory 
     { 

@@ -15,6 +15,13 @@ string Upper(string a)//viet hoa
 	return a;
 }
 
+void swap(int &x,int &y)
+{
+	int temp=x;
+	x=y;
+	y=temp;
+}
+
 string str_time(tm *ltm)
 {
 	int year=ltm->tm_year+1900,mon=ltm->tm_mon+1;
@@ -39,7 +46,6 @@ void Student::do_quiz(string nameFile)//lam cau hoi thi
 	Quiz *q;
 	q=new Quiz("",0);
 	q->importFile(nameFile);
-//	cout<<*q;
 	Question *Q=q->get_Head();
 	int count=0;
 	while(Q)
@@ -50,6 +56,24 @@ void Student::do_quiz(string nameFile)//lam cau hoi thi
 	vector<string> myAnswer(count,"");
 	vector<bool> myAnswerB(count,false);
 	vector<float> myPoint(count,0.0);
+	vector<int> myRan(count,0);
+	srand(time(0));
+	myRan[0]=rand()%count+1;
+//	cout<<myRan[0]<<"	";
+	for (int i=1;i<count;i++)
+	{
+		myRan[i]=rand()%count+1;
+		for(int j=0;j<i;j++)
+			{
+				if(myRan[i]==myRan[j])
+					{
+						myRan[i]=rand()%count+1;
+						j=-1;
+					}
+			}
+//		cout<<myRan[i]<<"	";
+	}	
+	cout<<endl;
 	bool a= false;
 	string temp=q->get_content();
 	int Range=10,tep=temp.length();
@@ -59,10 +83,21 @@ void Student::do_quiz(string nameFile)//lam cau hoi thi
 	int nhap;
 	time_t now = time(0);
     tm *ltm	= localtime(&now); 		
-	while(!a)
+	while(myRan.size()!=0)
 	{
 		Q=q->get_Head();
-		system("cls");
+		tep=myRan.front();
+		for (int i=1;i<myRan.size();i++)
+			{
+				int t=myRan[i-1];
+				myRan[i-1]=myRan[i];
+				myRan[i]=t;
+			}
+		myRan.pop_back();
+		for(int i=1;i<tep;i++)
+		{
+			Q=Q->getNext();
+		}
 		cout<<"\t\t ";
 		for(int i=0;i<Range;i++)
 		cout<<"-";
@@ -81,30 +116,57 @@ void Student::do_quiz(string nameFile)//lam cau hoi thi
 		cout<<"Ten: "<<name<<endl;
 		cout<<"Thoi gian lam: "<<ltm->tm_hour<<":"<<ltm->tm_min<<":"<<ltm->tm_sec<<" ";
 		cout<<ltm->tm_mday<<"-"<<ltm->tm_mon+1<<"-"<<ltm->tm_year+1900<<endl;
-		for(int i=0;i<count;i++)
+		cout<<"Tong so cau hoi la: "<<count<<endl;
+		cout<<"Cau"<<tep<<": ";
+		cout<<*Q;
+		cout<<"Nhap (A) de tra loi va (S) de bo qua: ";
+		getline(cin,temp);
+		Upper(temp);
+		while(temp.compare("A")!=0 && temp.compare("S")!=0 )
 		{
-			cout<<"Cau "<<i+1<<": "<<Q->getContent();
-			if(myAnswerB[i]==0)
-			cout<<"\t\tChua duoc tra loi";
-			else cout<<"\t\tDa duoc tra loi";
-			cout<<endl;
-			Q=Q->getNext();//cau hoi tiep theo
+			cout<<"Nhap (A) de tra loi va (S) de bo qua: ";
+			getline(cin,temp);
 		}
-		cout<<endl<<endl;
-		cout<<"Ban muon ket thuc(K) hay la tra loi cau hoi(T): ";
-		getline(cin,check);
-		Q=q->get_Head();
-		check=Upper(check);
-		if(check=="T")
-		{
-			cout<<"Nhap cau ban muon tra loi: ";
-			cin>>nhap;
-			while(nhap<1 && nhap>count)
+			if(temp.compare("A")==0)
+				{
+					cout<<"Nhap cau tra loi cua ban: ";
+					getline(cin,myAnswer[tep-1]);
+					Upper(myAnswer[tep-1]);
+					if(myAnswer[tep-1].compare("")!=0)
+						myAnswerB[tep-1]=true;
+					else myAnswerB[tep-1]=false;
+//					cout<<myAnswer[tep-1];
+				}
+			else if(temp.compare("S")==0)
 			{
-				cout<<"nhap lai: ";
-				cin>>nhap;
+				myRan.push_back(tep);
 			}
-			system("cls");
+	}
+	while(!a)
+	{
+		cout<<"KET THUC(K), Chinh sua(S): ";
+		getline(cin,temp);
+		while(temp.compare("K")!=0 && temp.compare("S")!=0 )
+			{
+				cout<<"Nhap (A) de tra loi va (S) de bo qua: ";
+				getline(cin,temp);
+			}
+		if (temp.compare("S")==0)
+		{
+			cout<<"Tong cau hoi: "<<count<<endl;
+			cout<<"Nhap so cau hoi muon sua: ";
+			cin>>tep;
+			if(tep<=count)
+			{
+				Q=q->get_Head();
+				for(int i=0;i<tep;i++)
+				{
+					Q=Q->getNext();
+				}
+					for(int i=1;i<tep;i++)
+		{
+			Q=Q->getNext();
+		}
 			cout<<"\t\t ";
 			for(int i=0;i<Range;i++)
 			cout<<"-";
@@ -123,24 +185,21 @@ void Student::do_quiz(string nameFile)//lam cau hoi thi
 			cout<<"Ten: "<<name<<endl;
 			cout<<"Thoi gian lam: "<<ltm->tm_hour<<":"<<ltm->tm_min<<":"<<ltm->tm_sec<<" ";
 			cout<<ltm->tm_mday<<"-"<<ltm->tm_mon+1<<"-"<<ltm->tm_year+1900<<endl;
-			for(int j=1;j<nhap;j++)
-			{
-				Q=Q->getNext();
-			}
-			cout<<"Cau "<<nhap<<": ";
-			cout<<*Q;
-			cout<<"Nhap cau tra loi cua ban: ";
-			cin.ignore();
-			getline(cin,myAnswer[nhap-1]);
-			if(myAnswer[nhap-1].compare("")!=0)
-			{
-				myAnswerB[nhap-1]=true;
+			cout<<"Tong so cau hoi la: "<<count<<endl;
+			cout<<"Cau"<<tep<<": ";
+			cout<<*Q;	
 			}
 		}
-		else if(check=="K")
+		if (temp.compare("K")==0)
+		{
 			a=true;
+		}
 	}
 	float point=10.0/count;
+	cout<<"My Answer: ";
+	for(int i=0;i<count;i++)
+		cout<<myAnswer[i]<<" ";
+	cout<<endl;	
 	Q=q->get_Head();
 	for(int i=0;i<count;i++)
 	{
@@ -166,7 +225,7 @@ void Student::do_quiz(string nameFile)//lam cau hoi thi
 					{
 						char tmp1=65;
 						int tmp=myAnswer[i][j]-tmp1;
-						cout<<tmp;
+//						cout<<tmp;
 						if(Q->checkChoice(tmp))
 							{
 							myPoint[i]+=Q->getPointe(point);
@@ -178,7 +237,7 @@ void Student::do_quiz(string nameFile)//lam cau hoi thi
 					}
 			}
 		}		
-		cout<<myPoint[i];// diem tung cau hoi
+//		cout<<myPoint[i];// diem tung cau shoi
 		Q=Q->getNext();// cau tiep theo
 	}
 	cout<<"Tong so cau hoi :"<<count<<endl;
@@ -188,10 +247,10 @@ void Student::do_quiz(string nameFile)//lam cau hoi thi
 	 	if(myPoint[i]==point)
 	 		tep++;
 	cout<<tep<<"/"<<count<<endl;
-	tep=0;
+	float b=0;	
 	for(int i=0;i<count;i++)
-	 		tep+=myPoint[i];
-	cout<<"Tong so diem dat duoc: "<<tep<<"/10"<<endl;
+	 	b=b+myPoint[i];
+	cout<<"Tong so diem dat duoc: "<<b<<"/10"<<endl;
 	string tmp;
 	cout<<"Nhap <S> de luu lai dap an: ";
 	getline(cin,tmp);
@@ -203,6 +262,7 @@ void Student::do_quiz(string nameFile)//lam cau hoi thi
 		temp="student/"+temp+".txt";
 //		cout<<temp;
 		char A=65;
+//		cout<<A;
 		ofstream out;
 		out.open(temp.c_str());
 		out<<"Id: "<<id<<endl;
@@ -214,13 +274,14 @@ void Student::do_quiz(string nameFile)//lam cau hoi thi
 			out<<"Cau"<<i+1<<": "<<Q->getContent()<<endl;
 			Choice *C=Q->getHead();
 			tep=0;
+			A=65;
 			while(C)
 			{
-				out<<A+tep<<". "<<C->get_content()<<endl;
-				tep++;
+				out<<A<<". "<<C->get_content()<<endl;
+				A=A+1;
 				C=C->get_next();
 			}
-			out<<"Dap an:"<<myAnswer[i]<<"\t\t";
+			out<<"Ban chon:"<<myAnswer[i]<<"\t\t";
 			if(myPoint[i]==point)
 				out<<"True";
 			else out<<"False"; 
@@ -228,4 +289,36 @@ void Student::do_quiz(string nameFile)//lam cau hoi thi
 		}
 		out.close();
 	}
+}
+
+string Student::choose_quiz(string namefile="quiz/")
+{
+	dirent *de;
+	DIR *dr = opendir(namefile.c_str());
+	
+    if (dr == NULL)  // opendir returns NULL if couldn't open directory 
+    { 
+        cout<<"Could not open current directory"<<endl; 
+        return "nothing"; 
+    }
+    string temp;
+    vector<string>path;
+    while ((de = readdir(dr))) 
+        {
+            temp=de->d_name;
+            if(!(temp!="." xor temp!=".."))
+            {
+				path.push_back(temp);
+			}
+        }
+    closedir(dr);     
+	cout<<"Tat ca file kiem tra:\n";
+	for(int i=0;i<path.size();i++)
+	{
+		cout<<i+1<<". "<<path[i]<<endl;
+	}
+	cout<<"ban chon file so may: ";
+	int a;
+	cin>>a;
+	return path[a-1];
 }

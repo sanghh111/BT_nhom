@@ -1,0 +1,19 @@
+Id: 1851120039
+name: sang
+			test nhanh
+Cau1: 2+2=?
+A. 4
+B. 5
+Ban chon:A		True
+Cau2: 2+2=?
+A. 4
+B. 5
+Ban chon:A		True
+Cau3: 2+2=?
+A. 4
+B. 5
+Ban chon:AB		True
+Cau4: 2+2=?
+A. 4
+B. 5
+Ban chon:AB		True
