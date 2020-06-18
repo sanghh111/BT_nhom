@@ -3,9 +3,9 @@
 #include<string.h>
 using namespace std;
 class Choice{
-	Choice*next;
-	string content;
-	bool answer;
+	Choice*next;//vi tri tiep theo cua Choice
+	string content;//Noi dung cau Choice
+	bool answer;//0 là cau sai con la  cau dung
 	public:
 		Choice(string content,bool answer);
 		Choice* get_next();
@@ -14,7 +14,5 @@ class Choice{
 		void set_content();
 		bool get_answer();
 		void set_answer(bool);
-//		void set_makeChoose(bool);
-//		bool get_makeChoose();
 		friend class Question;
 };

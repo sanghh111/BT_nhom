@@ -23,7 +23,7 @@ int menu()
 		cout<<"9 Ket thuc"<<endl;
 		cout<<"Nhap tu 1-9: ";
 		cin>>n;
-//		cin.ignore();
+		cin.ignore();
 		switch (n)
 			{
 			case 1:
@@ -102,7 +102,7 @@ int menu()
 				}
 			case 8:
 				{
-					cout<"Nhap id: ";getline(cin,temp1);
+					cin.ignore();cout<"Nhap id: ";getline(cin,temp1);
 					cout<<"Nhap ten: ";getline(cin,temp2);
 					Student *S=new Student(temp1,temp2);
 					temp=S->choose_quiz("quiz/");

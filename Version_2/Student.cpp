@@ -201,7 +201,7 @@ void Student::do_quiz(string nameFile)//lam cau hoi thi
 		cout<<myAnswer[i]<<" ";
 	cout<<endl;	
 	Q=q->get_Head();
-	for(int i=0;i<count;i++)
+	for(int i=0;i<count;i++)//cham diem
 	{
 		if(myAnswerB[i])
 		{
@@ -209,7 +209,7 @@ void Student::do_quiz(string nameFile)//lam cau hoi thi
 			{
 				if(myAnswer[i].length()==1)
 				{
-					char tmp1=65;
+					char tmp1=65;"A"
 					int tmp=myAnswer[0][0]-tmp1;
 					cout<<tmp;
 					if(Q->checkChoice(tmp))
@@ -233,6 +233,7 @@ void Student::do_quiz(string nameFile)//lam cau hoi thi
 						else
 							{
 							myPoint[i]=0;
+							break;
 							}
 					}
 			}

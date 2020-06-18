@@ -4,7 +4,7 @@ Question::Question(string content="",bool type=false)
 	count_answer=0;
 	this->content=content;
 	this->type=type;
-	head=tail=NULL;
+	head=tail=NULL;//cho con tro dau va con tro cuoi chua xac dinh
 	count_answer=0;
 	next=NULL;
 }
@@ -20,9 +20,9 @@ void Question::addChoice(Choice* temp)
 	}
 	if(temp->get_answer()==true)
 	{
-		if(type==0)
+		if(type==0)//kiem tra day la kieu gi
 		{
-			if(count_answer==0)
+			if(count_answer==0)// ko tim thay lon hon 1 
 			{
 				count_answer++;
 			}
@@ -32,7 +32,7 @@ void Question::addChoice(Choice* temp)
 				temp1->set_answer(false);
 			}
 		}
-		else
+		else //type =1 
 		{
 			count_answer++;
 		}
@@ -149,7 +149,7 @@ void Question::removeChoice(int Pos){
                         return ;
                     }                
             }
-            b=a;
+            b=a;//b di sau a
             a=a->next;
         }
     cout<<"~~Khong tim thay vi tri can tim~~"<<endl;
@@ -300,18 +300,18 @@ Choice* Question::fineTrueChoice()
 
 void Question::makeTrueChoice(int pos)
 {
-	if(type==0)
+	if(type==0)// neu la dang once choice t se cho tat ca cau la sai 
 	{
 		while(count_answer!=0)
 		{
 			Choice *a= fineTrueChoice();
-			a->set_answer(0);
+			a->set_answer(false);
 			count_answer--;
 		}
 	}
-	Choice *temp = head;
+	Choice *temp = head;// cho con tro tam tro toi dau
 	int count=1;
-	while(pos!=count && temp!=NULL)
+	while(pos!=count && temp!=NULL)//duyet den khi tim duoc vi tri can tiem hoac la cuoi mang
 	{
 		temp=temp->next;
 		count++;

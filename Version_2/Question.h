@@ -1,11 +1,11 @@
 #include"Choice.h"
 class Question{
 	bool type;//type=0 once choice, type=1 muti
-	string content;
-	int count_answer;
-	Choice *head,*tail;
-	Question *next;
-	float point;
+	string content;//noi dung question
+	int count_answer;//dem so cau dunmg
+	Choice *head,*tail;//con tro dau và con tro? cuo^'i va' con tro? cuo^'i
+	Question *next;//co tro next danh cho Quiz
+	float point;//diem cua cau hoi
 	public:
 		Question(string,bool);
 		Choice* fineTrueChoice();
